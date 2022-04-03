@@ -2,6 +2,7 @@ package christmasRaces.entities.races;
 
 import christmasRaces.entities.drivers.Driver;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import static christmasRaces.common.ExceptionMessages.*;
@@ -13,8 +14,9 @@ public class RaceImpl implements Race{
     private Collection<Driver> drivers;
 
     public RaceImpl(String name, int laps) {
-        this.name = name;
-        this.laps = laps;
+        setName(name);
+        setLaps(laps);
+        this.drivers = new ArrayList<>();
     }
 
     public void setName(String name) {

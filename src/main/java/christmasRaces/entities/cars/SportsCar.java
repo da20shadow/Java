@@ -21,16 +21,16 @@ public class SportsCar extends BaseCar{
 
     @Override
     public String getModel() {
-        return null;
+        return super.getModel();
     }
 
     @Override
     public int getHorsePower() {
-        return 0;
+        return super.getHorsePower();
     }
 
     @Override
     public double getCubicCentimeters() {
-        return 0;
+        return super.getCubicCentimeters();
     }
 }

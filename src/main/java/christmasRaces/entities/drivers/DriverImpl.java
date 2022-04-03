@@ -1,5 +1,6 @@
 package christmasRaces.entities.drivers;
 
+import christmasRaces.common.ExceptionMessages;
 import christmasRaces.entities.cars.Car;
 
 import static christmasRaces.common.ExceptionMessages.CAR_INVALID;
@@ -9,9 +10,17 @@ public class DriverImpl implements Driver{
     private String name;
     private Car car;
     private int numberOfWins;
-    private boolean canParticipate = false;
+    private boolean canParticipate;
 
     public DriverImpl(String name) {
+        setName(name);
+        this.canParticipate = false;
+    }
+
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty()){
+            throw new IllegalArgumentException(String.format(ExceptionMessages.INVALID_NAME,name,5));
+        }
         this.name = name;
     }
 

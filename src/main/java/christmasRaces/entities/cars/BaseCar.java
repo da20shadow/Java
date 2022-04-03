@@ -1,5 +1,7 @@
 package christmasRaces.entities.cars;
 
+import static christmasRaces.common.ExceptionMessages.INVALID_MODEL;
+
 public abstract class BaseCar implements Car{
 
     private String model;
@@ -7,22 +9,35 @@ public abstract class BaseCar implements Car{
     private double cubicCentimeters;
 
     public BaseCar(String model, int horsepower, double cubicCentimeters) {
-        this.model = model;
+        setModel(model);
         this.checkHorsePower(horsepower);
         this.horsepower = horsepower;
         this.cubicCentimeters = cubicCentimeters;
     }
 
+    public void setModel(String model) {
+        if (model == null || model.trim().isEmpty()){
+            throw new IllegalArgumentException(String.format(INVALID_MODEL,model,4));
+        }
+        this.model = model;
+    }
+
     protected abstract void checkHorsePower(int hp);
 
     @Override
-    public abstract String getModel();
+    public String getModel(){
+        return this.model;
+    }
 
     @Override
-    public abstract int getHorsePower();
+    public int getHorsePower() {
+        return this.horsepower;
+    }
 
     @Override
-    public abstract double getCubicCentimeters();
+    public double getCubicCentimeters() {
+        return this.cubicCentimeters;
+    }
 
     @Override
     public double calculateRacePoints(int laps) {
