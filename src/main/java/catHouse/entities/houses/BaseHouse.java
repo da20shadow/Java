@@ -5,6 +5,7 @@ import catHouse.common.ExceptionMessages;
 import catHouse.entities.cat.Cat;
 import catHouse.entities.toys.Toy;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public abstract class BaseHouse implements House{
@@ -17,13 +18,15 @@ public abstract class BaseHouse implements House{
     public BaseHouse(String name, int capacity) {
         setName(name);
         this.capacity = capacity;
+        this.cats = new ArrayList<>();
+        this.toys = new ArrayList<>();
     }
 
     @Override
     public int sumSoftness() {
         int sum = 0;
-        for (Toy toy : this.toys){
-            sum += toy.getSoftness();
+        for (Toy t : this.toys){
+            sum += t.getSoftness();
         }
         return sum;
     }
@@ -71,15 +74,16 @@ public abstract class BaseHouse implements House{
 
         if (this.getCats().isEmpty()){
             str.append(" none");
-            return str.toString();
+            str.append(System.lineSeparator());
+        }else{
+            for (Cat cat : this.getCats()){
+                str.append(" ").append(cat.getName());
+            }
+            str.append(System.lineSeparator());
         }
 
-        for (Cat cat : this.getCats()){
-            str.append(" ").append(cat.getName());
-        }
-        str.append(System.lineSeparator());
-        int sumSoftness = sumSoftness();
-        str.append("Toys: ").append(this.getToys().size()).append(sumSoftness);
+        int sumSoftness = this.sumSoftness();
+        str.append("Toys: ").append(this.getToys().size()).append(" Softness: ").append(sumSoftness);
         return str.toString();
     }
 

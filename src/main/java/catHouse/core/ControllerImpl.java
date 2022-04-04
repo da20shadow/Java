@@ -82,10 +82,10 @@ public class ControllerImpl implements Controller{
 
         Cat cat;
         switch (catType){
-            case "ShortHair":
+            case "ShorthairCat":
                 cat = new ShortHairCat(catName,catBreed,price);
                 break;
-            case "LongHair":
+            case "LonghairCat":
                 cat = new LonghairCat(catName,catBreed,price);
                 break;
             default:
@@ -135,6 +135,7 @@ public class ControllerImpl implements Controller{
         StringBuilder str = new StringBuilder();
         for (House h : this.houses){
             str.append(h.getStatistics());
+            str.append(System.lineSeparator());
         }
         return str.toString();
     }
