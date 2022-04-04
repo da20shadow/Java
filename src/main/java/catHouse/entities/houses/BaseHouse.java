@@ -33,18 +33,10 @@ public abstract class BaseHouse implements House{
 
     @Override
     public void addCat(Cat cat) {
-        if (this.cats.size() >= this.capacity){
+        if (this.cats.size() >= this.getCapacity()){
             throw new IllegalStateException(ConstantMessages.NOT_ENOUGH_CAPACITY_FOR_CAT);
         }
-        boolean shortHouseCat = this.getClass().getSimpleName().startsWith("Short")
-                && cat.getClass().getSimpleName().startsWith("Short");
-        boolean longHouseCat = this.getClass().getSimpleName().startsWith("Long")
-                && cat.getClass().getSimpleName().startsWith("Long");
-        if (shortHouseCat || longHouseCat) {
-            this.cats.add(cat);
-        }else {
-            throw new IllegalStateException(ConstantMessages.UNSUITABLE_HOUSE);
-        }
+        this.cats.add(cat);
     }
 
     @Override
@@ -74,13 +66,12 @@ public abstract class BaseHouse implements House{
 
         if (this.getCats().isEmpty()){
             str.append(" none");
-            str.append(System.lineSeparator());
         }else{
             for (Cat cat : this.getCats()){
                 str.append(" ").append(cat.getName());
             }
-            str.append(System.lineSeparator());
         }
+        str.append(System.lineSeparator());
 
         int sumSoftness = this.sumSoftness();
         str.append("Toys: ").append(this.getToys().size()).append(" Softness: ").append(sumSoftness);
@@ -109,5 +100,9 @@ public abstract class BaseHouse implements House{
     @Override
     public Collection<Toy> getToys() {
         return this.toys;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 }

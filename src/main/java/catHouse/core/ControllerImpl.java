@@ -94,7 +94,15 @@ public class ControllerImpl implements Controller{
 
         for (House h : this.houses){
             if (h.getName().equals(houseName)){
-                h.addCat(cat);
+                boolean shortHouseCat = h.getClass().getSimpleName().startsWith("Short")
+                        && catType.startsWith("Short");
+                boolean longHouseCat = h.getClass().getSimpleName().startsWith("Long")
+                        && catType.startsWith("Long");
+                if (shortHouseCat || longHouseCat) {
+                    h.addCat(cat);
+                }else {
+                    return ConstantMessages.UNSUITABLE_HOUSE;
+                }
                 return String.format(ConstantMessages.SUCCESSFULLY_ADDED_CAT_IN_HOUSE,catType,houseName);
             }
         }
@@ -137,6 +145,6 @@ public class ControllerImpl implements Controller{
             str.append(h.getStatistics());
             str.append(System.lineSeparator());
         }
-        return str.toString();
+        return str.toString().trim();
     }
 }

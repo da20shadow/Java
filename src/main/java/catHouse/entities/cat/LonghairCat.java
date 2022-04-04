@@ -4,13 +4,11 @@ public class LonghairCat extends BaseCat{
     private static final int INITIAL_KILOGRAMS = 9;
 
     public LonghairCat(String name, String breed, double price) {
-        super(name, breed, price);
-        super.kilograms = INITIAL_KILOGRAMS;
-        //TODO change the super.kilograms to be in the super constructor
+        super(name, breed, price,INITIAL_KILOGRAMS);
     }
 
     @Override
     public void eating() {
-        super.kilograms += 3;
+        this.setKilograms(this.getKilograms() + 3);
     }
 }

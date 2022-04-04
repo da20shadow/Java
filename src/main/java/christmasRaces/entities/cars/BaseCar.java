@@ -5,13 +5,13 @@ import static christmasRaces.common.ExceptionMessages.INVALID_MODEL;
 public abstract class BaseCar implements Car{
 
     private String model;
-    private int horsepower;
+    private int horsePower;
     private double cubicCentimeters;
 
     public BaseCar(String model, int horsepower, double cubicCentimeters) {
         setModel(model);
         this.checkHorsePower(horsepower);
-        this.horsepower = horsepower;
+        this.horsePower = horsepower;
         this.cubicCentimeters = cubicCentimeters;
     }
 
@@ -31,7 +31,7 @@ public abstract class BaseCar implements Car{
 
     @Override
     public int getHorsePower() {
-        return this.horsepower;
+        return this.horsePower;
     }
 
     @Override
@@ -41,6 +41,6 @@ public abstract class BaseCar implements Car{
 
     @Override
     public double calculateRacePoints(int laps) {
-        return this.cubicCentimeters / this.horsepower * laps;
+        return this.cubicCentimeters / this.horsePower * laps;
     }
 }

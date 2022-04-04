@@ -5,14 +5,18 @@ import catHouse.common.ExceptionMessages;
 public abstract class BaseCat implements Cat{
     private String name;
     private String breed;
-    protected int kilograms;
+    private int kilograms;
     private double price;
 
-    public BaseCat(String name, String breed, double price) {
+    public BaseCat(String name, String breed, double price, int kilograms) {
         setName(name);
         setBreed(breed);
         setPrice(price);
-        //TODO add setter for the kilograms and add input in the constructor
+        setKilograms(kilograms);
+    }
+
+    public void setKilograms(int kilograms) {
+        this.kilograms = kilograms;
     }
 
     public void setPrice(double price) {
