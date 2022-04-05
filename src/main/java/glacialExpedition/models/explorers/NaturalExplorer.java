@@ -12,9 +12,8 @@ public class NaturalExplorer extends BaseExplorer{
     @Override
     public void search(){
 
-        if (super.getEnergy() >= ENERGY_NEEDED_FOR_NATURAL_EXPLORER){
-            double currentEnergy = super.getEnergy();
-            super.setEnergy(currentEnergy - ENERGY_NEEDED_FOR_NATURAL_EXPLORER);
+        if (this.getEnergy() >= ENERGY_NEEDED_FOR_NATURAL_EXPLORER){
+            this.setEnergy(this.getEnergy() - ENERGY_NEEDED_FOR_NATURAL_EXPLORER);
         }else{
             super.setEnergy(0);
         }

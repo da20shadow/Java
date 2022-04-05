@@ -105,20 +105,9 @@ public class ControllerImpl implements Controller {
 
         gangNeighbourhood.action(this.mainPlayer,this.civilPlayerList);
 
-        boolean isAnyoneHarmed = false;
-        for (Player player : this.civilPlayerList){
-
-            if (player.getLifePoints() < 50){
-                isAnyoneHarmed = true;
-            }
-        }
-
-        if (this.mainPlayer.getLifePoints() == 100
-                && this.startNumOfPlayers == this.civilPlayerList.size()
-                && !isAnyoneHarmed){
-
+        if (noOneHarmed(this.mainPlayer,this.civilPlayerList,this.startNumOfPlayers)){
             return "Everything is okay!";
-        }else {
+        } else {
             StringBuilder message = new StringBuilder();
             message.append("A fight happened:");
             message.append(System.lineSeparator());
@@ -131,5 +120,22 @@ public class ControllerImpl implements Controller {
 
             return message.toString();
         }
+    }
+
+    private boolean noOneHarmed(Player mainPlayer, Collection<Player> civilPlayers, int numberOfCivilPlayers) {
+
+        if (mainPlayer.getLifePoints() < 100){
+            return false;
+        }else if (civilPlayers.size() < numberOfCivilPlayers){
+            return false;
+        }else {
+            for (Player civilP : civilPlayers){
+
+                if (civilP.getLifePoints() < 50){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

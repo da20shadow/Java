@@ -1,5 +1,6 @@
 package glacialExpedition.models.explorers;
 
+import glacialExpedition.models.suitcases.Carton;
 import glacialExpedition.models.suitcases.Suitcase;
 
 import static glacialExpedition.common.ExceptionMessages.EXPLORER_ENERGY_LESS_THAN_ZERO;
@@ -14,7 +15,7 @@ public abstract class BaseExplorer implements Explorer{
     public BaseExplorer(String name, double energy) {
         setName(name);
         setEnergy(energy);
-        //TODO to create new suitcase = new Suitcase()
+        this.suitcase = new Carton();
     }
 
     @Override

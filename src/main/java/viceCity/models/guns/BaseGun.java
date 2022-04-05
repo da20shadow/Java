@@ -5,7 +5,7 @@ import static viceCity.common.ExceptionMessages.*;
 public abstract class BaseGun implements Gun {
     private String name;
     private  int bulletsPerBarrel;
-    private  int totalBullets;
+    private int totalBullets;
     private int bulletsInBarrel; //capacity = bulletsPerBarrel
     private boolean canFire;
 
@@ -23,6 +23,7 @@ public abstract class BaseGun implements Gun {
         this.name = name;
         this.bulletsPerBarrel = bulletsPerBarrel;
         this.totalBullets = totalBullets;
+        this.canFire = totalBullets > 0;
     }
 
     @Override
@@ -41,7 +42,7 @@ public abstract class BaseGun implements Gun {
 
     @Override
     public boolean canFire() {
-        return this.canFire;
+        return this.totalBullets > 0 || this.bulletsInBarrel > 0;
     }
 
     @Override
