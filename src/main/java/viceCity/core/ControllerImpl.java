@@ -74,25 +74,22 @@ public class ControllerImpl implements Controller {
 
         }else {
 
-            boolean exist = false;
-            CivilPlayer theCivilPlayer = null;
+            String theCivilPlayer = null;
             for (Player civilPlayer: this.civilPlayerList){
 
                 if (civilPlayer.getName().equals(name)){
-                    theCivilPlayer = (CivilPlayer) civilPlayer;
+                    theCivilPlayer = civilPlayer.getName();
                     civilPlayer.getGunRepository().add(first);
                     this.guns.remove(0);
-                    exist = true;
-
                 }
             }
 
-            if (!exist){
+            if (theCivilPlayer == null){
                 return "Civil player with that name doesn't exists!";
-            }else{
-                return String.format("Successfully added %s to the Civil Player: %s"
-                        ,first.getName(),theCivilPlayer.getName());
             }
+
+            return String.format("Successfully added %s to the Civil Player: %s"
+                        ,first.getName(),theCivilPlayer);
         }
     }
 

@@ -2,11 +2,16 @@ package restaurant.repositories;
 
 import restaurant.entities.drinks.interfaces.Beverages;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
 public class BeverageRepositoryImpl implements restaurant.repositories.interfaces.BeverageRepository<Beverages> {
     private Collection<Beverages> beverages;
+
+    public BeverageRepositoryImpl() {
+        this.beverages = new ArrayList<>();
+    }
 
     @Override
     public Beverages beverageByName(String drinkName, String drinkBrand) {

@@ -2,11 +2,16 @@ package restaurant.repositories;
 
 import restaurant.entities.tables.interfaces.Table;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
 public class TableRepositoryImpl implements restaurant.repositories.interfaces.TableRepository<Table> {
     private Collection<Table> tables;
+
+    public TableRepositoryImpl() {
+        this.tables = new ArrayList<>();
+    }
 
     @Override
     public Collection<Table> getAllEntities() {

@@ -38,16 +38,16 @@ public abstract class Food implements HealthyFood {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public double getPortion() {
-        return 0;
+        return this.portion;
     }
 
     @Override
     public double getPrice() {
-        return 0;
+        return this.price;
     }
 }

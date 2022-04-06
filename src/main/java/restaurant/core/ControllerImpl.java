@@ -105,6 +105,7 @@ public class ControllerImpl implements Controller {
                 tableNumber = table.getTableNumber();
                 this.tableRepository.byNumber(tableNumber).reserve(numberOfPeople);
                 foundTable = true;
+                break;
             }
         }
         if (!foundTable){

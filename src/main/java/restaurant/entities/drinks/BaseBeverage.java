@@ -46,21 +46,21 @@ public abstract class BaseBeverage implements Beverages {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public int getCounter() {
-        return 0;
+        return this.counter;
     }
 
     @Override
     public double getPrice() {
-        return 0;
+        return this.price;
     }
 
     @Override
     public String getBrand() {
-        return null;
+        return this.brand;
     }
 }
