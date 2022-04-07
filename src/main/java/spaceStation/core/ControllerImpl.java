@@ -12,14 +12,15 @@ import spaceStation.models.planets.Planet;
 import spaceStation.models.planets.PlanetImpl;
 import spaceStation.repositories.AstronautRepository;
 import spaceStation.repositories.PlanetRepository;
+import spaceStation.repositories.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerImpl implements Controller {
 
-    private AstronautRepository astronautRepository;
-    private PlanetRepository planetRepository;
+    private Repository<Astronaut> astronautRepository;
+    private Repository<Planet> planetRepository;
     private int exploredPlanets;
 
     public ControllerImpl(AstronautRepository astronautRepository, PlanetRepository planetRepository) {
@@ -55,6 +56,7 @@ public class ControllerImpl implements Controller {
         for (String item : items){
             planet.getItems().add(item);
         }
+        this.planetRepository.add(planet);
         return String.format(ConstantMessages.PLANET_ADDED,planetName);
     }
 
@@ -71,20 +73,20 @@ public class ControllerImpl implements Controller {
     @Override
     public String explorePlanet(String planetName) {
         Mission mission = new MissionImpl();
-        List<Astronaut> astronauts = new ArrayList<>();
+        List<Astronaut> astronautsForMission = new ArrayList<>();
 
         for (Astronaut astronaut : this.astronautRepository.getModels()){
             if (astronaut.getOxygen() > 60){
-                astronauts.add(astronaut);
+                astronautsForMission.add(astronaut);
             }
         }
-        if (astronauts.isEmpty()){
+        if (astronautsForMission.isEmpty()){
             throw new IllegalArgumentException(ExceptionMessages.PLANET_ASTRONAUTS_DOES_NOT_EXISTS);
         }
-        int initialAstronautsNumber = this.astronautRepository.getModels().size();
-        mission.explore(this.planetRepository.findByName(planetName),astronauts);
+        int initialAstronautsNumber = astronautsForMission.size();
+        mission.explore(this.planetRepository.findByName(planetName),astronautsForMission);
         this.exploredPlanets++;
-        int dead = initialAstronautsNumber - astronauts.size();
+        int dead = initialAstronautsNumber - astronautsForMission.size();
         return String.format(ConstantMessages.PLANET_EXPLORED,planetName,dead);
     }
 
@@ -95,7 +97,24 @@ public class ControllerImpl implements Controller {
         str.append(System.lineSeparator());
         str.append(ConstantMessages.REPORT_ASTRONAUT_INFO);
         str.append(System.lineSeparator());
+
+        for (Astronaut astronaut : this.astronautRepository.getModels()){
+            str.append(String.format(ConstantMessages.REPORT_ASTRONAUT_NAME,astronaut.getName()));
+            str.append(System.lineSeparator());
+            str.append(String.format(ConstantMessages.REPORT_ASTRONAUT_OXYGEN,astronaut.getOxygen()));
+            str.append(System.lineSeparator());
+            if (astronaut.getBag().getItems().isEmpty()){
+                str.append(String.format(ConstantMessages.REPORT_ASTRONAUT_BAG_ITEMS,"none"));
+            }else{
+                String theItems =
+                        String.format(ConstantMessages.REPORT_ASTRONAUT_BAG_ITEMS,
+                                String.join(ConstantMessages.REPORT_ASTRONAUT_BAG_ITEMS_DELIMITER,
+                                        astronaut.getBag().getItems()));
+                str.append(theItems);
+            }
+            str.append(System.lineSeparator());
+        }
         
-        return null;
+        return str.toString().trim();
     }
 }

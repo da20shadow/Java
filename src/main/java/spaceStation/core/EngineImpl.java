@@ -5,7 +5,9 @@ import spaceStation.common.Command;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class EngineImpl implements Engine {
     private Controller controller;
@@ -67,22 +69,29 @@ public class EngineImpl implements Engine {
     }
 
     private String retireAstronaut(String[] data) {
-        return null;
+        return controller.retireAstronaut(data[0]);
     }
 
     private String report() {
-        return null;
+        return controller.report();
     }
 
     private String explorePlanet(String[] data) {
-        return null;
+        return controller.explorePlanet(data[0]);
     }
 
     private String addPlanet(String[] data) {
-        return null;
+        if (data.length > 1){
+
+            String[] items = Arrays.stream(data).skip(1).toArray(String[]::new);
+
+            return controller.addPlanet(data[0],items);
+        }else{
+            return controller.addPlanet(data[0]);
+        }
     }
 
     private String addAstronaut(String[] data) {
-        return null;
+        return controller.addAstronaut(data[0],data[1]);
     }
 }
